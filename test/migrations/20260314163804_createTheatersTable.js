@@ -4,7 +4,7 @@
  */
 exports.up = async  function(knex) {
   await knex.schema.createTable("theaters", (table) => {
-    table.uuid("theater_id").primary().defaultTo(knex.raw("uuid_generate_v4()"));
+    table.uuid("theater_id").primary().defaultTo(knex.raw("lower(hex(randomblob(16)))"));
     table.string("name").notNullable();
     table.string("address_line_1").notNullable();
     table.string("address_line_2");

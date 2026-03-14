@@ -43,10 +43,10 @@ module.exports = {
       filename: ":memory:",
     },
     migrations: {
-      directory: path.join(__dirname, "src", "db", "migrations"),
+      directory: path.join(__dirname, "test", "migrations"),
     },
     seeds: {
-      directory: path.join(__dirname, "src", "db", "seeds"),
+      directory: path.join(__dirname, "test", "seeds"),
     },
     useNullAsDefault: true,
   },
