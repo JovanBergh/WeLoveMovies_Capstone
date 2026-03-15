@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = async  function(knex) {
-  await knex.schema.createTable("theaters", (table) => {
+  await knex.schema.createTableIfNotExists("theaters", (table) => {
     table.uuid("theater_id").primary().defaultTo(knex.raw("uuid_generate_v4()"));
     table.string("name").notNullable();
     table.string("address_line_1").notNullable();

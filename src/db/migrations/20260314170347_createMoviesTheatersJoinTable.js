@@ -4,7 +4,7 @@
  */
 exports.up = async function(knex) {
 
-    await knex.schema.createTable("movies_theaters", (table) => {
+    await knex.schema.createTableIfNotExists("movies_theaters", (table) => {
     table.uuid("movie_id").notNullable();
     table.foreign("movie_id")
         .references("movie_id")

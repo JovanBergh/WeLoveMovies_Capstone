@@ -6,7 +6,7 @@ const { table } = require("../connection");
  */
 exports.up = async function (knex) {
 
-    await knex.schema.createTable("critics", (table) => {
+    await knex.schema.createTableIfNotExists("critics", (table) => {
     table.uuid("critic_id").primary().defaultTo(knex.raw("uuid_generate_v4()"));
     table.string("preferred_name").notNullable();
     table.string("surname").notNullable();

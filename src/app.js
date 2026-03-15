@@ -6,9 +6,16 @@ const moviesRouter = require("./movies/movies.router");
 const theatersRouter = require("./theaters/theaters.router");
 const reviewsRouter = require("./reviews/reviews.router");
 
-app.use(express.json());
+//ERORR HANDLERS
+const notFound = require("./errors/notFound");
+const errorHandler = require("./errors/errorHandler");
 
+app.use(express.json()); // enabling json handling
+
+//ROUTE HANDLERS
 app.use("/movies", moviesRouter);
 
+app.use(errorHandler);
+app.use(notFound);
 
 module.exports = app;

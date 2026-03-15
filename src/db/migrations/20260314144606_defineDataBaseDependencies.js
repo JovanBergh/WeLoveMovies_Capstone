@@ -5,10 +5,10 @@
 
 exports.up = async function (knex) {
 
-  await knex.raw('CREATE EXTENSION "uuid-ossp";');
+  await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
 
   await knex.raw(`
-    CREATE TYPE mpaa_rating AS ENUM ('G', 'PG', 'PG-13', 'R', 'NC-17', 'NR');
+    CREATE TYPE IF NOT EXISTS mpaa_rating AS ENUM ('G', 'PG', 'PG-13', 'R', 'NC-17', 'NR');
   `);
 
 };
