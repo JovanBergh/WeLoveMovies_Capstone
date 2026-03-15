@@ -13,8 +13,15 @@ async function read(req, res) {
 }
 
 async function list(req, res) {
-  res.json({ data: await service.list() });
-}
+
+  let is_showing = undefined;
+
+  if (req.query.is_showing == "true") {
+    is_showing = true;
+  }
+
+  res.json({ data: await service.list(is_showing) });
+}// list
 
 module.exports = {
   list: [asyncErrorBoundary(list)],

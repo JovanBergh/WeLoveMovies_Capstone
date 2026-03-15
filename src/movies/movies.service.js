@@ -9,7 +9,6 @@ async function list(is_showing) {
       "m.rating",
       "m.description",
       "m.image_url",
-
     )
     .modify((queryBuilder) => {
       if (is_showing) {
