@@ -24,7 +24,7 @@ async function list(is_showing) {
 }
 
 async function read(movie_id) {
-  await knex("movies as m").select(COLUMNS).where({ "m.id": movie_id });
+  return await db("movies as m").select(COLUMNS).where({ movie_id });
 }
 
 module.exports = {
