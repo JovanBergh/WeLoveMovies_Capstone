@@ -1,20 +1,19 @@
 const service = require("./movies.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
-async function movieExists(request, response, next) {
+async function movieExists(req, res, next) {
   // TODO: Add your code here.
 
   next({});
 }
 
-async function read(request, response) {
+async function read(req, res) {
   // TODO: Add your code here
-  response.json({ data: "" });
+  res.json({ data: "" });
 }
 
-async function list(request, response) {
-  // TODO: Add your code here.
-  response.json({ });
+async function list(req, res) {
+  res.json({ data: await service.list() });
 }
 
 module.exports = {

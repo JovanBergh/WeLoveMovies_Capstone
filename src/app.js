@@ -6,6 +6,9 @@ const moviesRouter = require("./movies/movies.router");
 const theatersRouter = require("./theaters/theaters.router");
 const reviewsRouter = require("./reviews/reviews.router");
 
-// TODO: Add your code here
+app.use(express.json());
+
+app.use("/movies", moviesRouter);
+
 
 module.exports = app;

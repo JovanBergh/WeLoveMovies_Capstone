@@ -1,18 +1,26 @@
 const db = require("../db/connection");
 
 async function list(is_showing) {
-  return db("movies")
-    .select("movies.*")
+  return db("movies as m")
+    .select(
+      "m.movie_id as id",
+      "m.title",
+      "m.runtime_in_minutes",
+      "m.rating",
+      "m.description",
+      "m.image_url",
+
+    )
     .modify((queryBuilder) => {
       if (is_showing) {
         queryBuilder
           .join(
-            "movies_theaters",
-            "movies.movie_id",
-            "movies_theaters.movie_id"
+            "movies_theaters as mt",
+            "m.movie_id",
+            "mt.movie_id"
           )
-          .where({ "movies_theaters.is_showing": true })
-          .groupBy("movies.movie_id");
+          .where({ "mt.is_showing": true })
+          .groupBy("m.movie_id");
       }
     });
 }
