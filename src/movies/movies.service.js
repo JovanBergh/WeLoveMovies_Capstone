@@ -24,7 +24,10 @@ async function list(is_showing) {
 }
 
 async function read(movie_id) {
-  return await db("movies as m").select(COLUMNS).where({ movie_id });
+  return await db("movies as m")
+    .select(COLUMNS)
+    .where({ movie_id })
+    .then((package) => package[0]);
 }
 
 module.exports = {
