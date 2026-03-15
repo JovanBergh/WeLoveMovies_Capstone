@@ -1,7 +1,7 @@
 const db = require("../db/connection");
 const reduceProperties = require("../utils/reduce-properties");
 
-COLUMNS = [
+THEATER_KEYS = [
   "t.theater_id",
   "t.name",
   "t.address_line_1",
@@ -9,7 +9,13 @@ COLUMNS = [
   "t.city",
   "t.state",
   "t.zip" 
-]
+];
+
+JOIN_KEYS = [
+  "mt.is_showing",
+  "mt.created_at",
+  "mt.update_at",
+];
 
 const reduceMovies = reduceProperties("theater_id", {
   movie_id: ["movies", null, "movie_id"],
@@ -20,7 +26,23 @@ const reduceMovies = reduceProperties("theater_id", {
   image_url: ["movies", null, "image_url"],
 });
 
-async function list(movie_id) {
+const showtimeDetails = function (queryBuilder, movie_id) {
+  if (movie_id) {
+      queryBuilder.where({ "m.movie_id": movie_id });
+  }
+};
+
+const resKeys = function (queryBuilder) {
+  if (movie_id) {
+    queryBuilder.select(
+      THEATER_KEYS,
+      JOIN_KEYS,
+      "m.movie_id"
+    )
+  }
+}
+
+async function list() {
   return db("theaters as t")
     .join(
       "movies_theaters as mt",
@@ -31,20 +53,16 @@ async function list(movie_id) {
     .modify((queryBuilder) => {
       if(movie_id) {
         queryBuilder.select(
-          COLUMNS,
+          THEATER_KEYS,
           "mt.is_showing",
           "mt.created_at",
           "mt.update_at",
           "m.movie_id"
         )
-        .where({ 
-          "m.movie_id": movie_id,
-          "mt.is_showing": true 
-          })
       }
       else {
         queryBuilder.select(
-          COLUMNS,
+          THEATER_KEYS,
           "t.created_at",
           "t.updated_at",
           "m.movie_id",
