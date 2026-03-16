@@ -9,7 +9,7 @@ const reviewsRouter = require("../reviews/reviews.router");
 const theatersRouter = require("../theaters/theaters.router");
 
 //COMPOUND ROUTES
-router.use(":movieId", controller.movieExists); //ID check
+router.use("/:movieId",controller.check); //ID check
 router.use("/:movieId/theaters", theatersRouter);
 router.use("/:movieId/reviews", reviewsRouter);
 
