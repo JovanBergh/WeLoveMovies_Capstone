@@ -9,27 +9,32 @@ const reduceMovies = reduceProperties("theater_id", {
   rating: ["movies", null, "rating"],
   description: ["movies", null, "description"],
   image_url: ["movies", null, "image_url"],
-  showing_created: ["movies", null, "created_at"],
-  showing_updated: ["movies", null, "updated_at"],
+  show_created: ["movies", null, "created_at"],
+  show_updated: ["movies", null, "updated_at"],
   is_showing: ["movies", null, "is_showing"],
-  t_id: ["movies", null, "theater_id"],
 });
 
 const buildResponse = function (queryBuilder, movie_id) {
 
-  queryBuilder.select(...theaters); //building response
+  queryBuilder.select(...theaters.slice(0,-2), ...mt.slice(2,-1)); //building response
 
   if (movie_id) {
     queryBuilder
-    .select(...mt)
+      .select("mt.is_showing")
       .where({
-      "mt.m_id": movie_id,
+      "mt.movie_id": movie_id,
       "mt.is_showing": true,
     });
   } else {
     queryBuilder
-      .select("t.created_at", "t.updated_at")
-      .select(...mt, ...movies)
+      .select(
+        ...theaters.slice(-2),
+        ...movies,
+        "mt.created_at as show_created",
+        "mt.updated_at as show_updated",
+        "mt.is_showing",
+        "mt.theater_id"
+      )
       .where({ "mt.is_showing": true });
   }
 };

@@ -8,8 +8,6 @@ function fetchMovie (res) {
 
 async function list(req, res) {
   const movie_id = fetchMovie(res);
-  console.log("id:" + movie_id);
-
   const data = await service.list(movie_id);
   res.json({ data });
 }
