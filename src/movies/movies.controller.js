@@ -2,7 +2,7 @@ const service = require("./movies.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const isExistingItem = require("../utils/is-existing-item");
 
-const doesMovieExist = isExistingItem(service.list(), "movie");
+const doesMovieExist = isExistingItem(service.read, "movie");
 
 function read(req, res) {
   res.json({ data: res.locals.movie });

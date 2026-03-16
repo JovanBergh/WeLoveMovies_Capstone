@@ -19,9 +19,10 @@ THEATER_KEYS = [
 
 JOIN_KEYS = [
   "mt.theater_id as t_id",
+  "mt.movie_id as m_id",
   "mt.is_showing",
-  "mt.created_at as created",
-  "mt.update_at as updated",
+  "mt.created_at as showing_created",
+  "mt.updated_at as showing_updated",
 ];
 
 module.exports = {

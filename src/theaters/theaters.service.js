@@ -3,31 +3,34 @@ const reduceProperties = require("../utils/reduce-properties");
 const { movies, theaters, mt } = require("../db/keys");
 
 const reduceMovies = reduceProperties("theater_id", {
-  movie_id: ["movies", null, "movie_id"],
+  id: ["movies", null, "movie_id"],
   title: ["movies", null, "title"],
   runtime_in_minutes: ["movies", null, "runtime_in_minutes"],
   rating: ["movies", null, "rating"],
   description: ["movies", null, "description"],
   image_url: ["movies", null, "image_url"],
-  created_at: ["movies_theaters", null, "created"],
-  updated_at: ["movies_theaters", null, "updated"],
-  theater_id: ["movies_theaters", null, "t_id"],
+  showing_created: ["movies", null, "created_at"],
+  showing_updated: ["movies", null, "updated_at"],
+  is_showing: ["movies", null, "is_showing"],
+  t_id: ["movies", null, "theater_id"],
 });
 
 const buildResponse = function (queryBuilder, movie_id) {
 
-  queryBuilder.select(theaters, mt, ["m.movie_id"]); //building response
+  queryBuilder.select(...theaters); //building response
 
   if (movie_id) {
-    queryBuilder.where({
-      "m.movie_id": movie_id,
+    queryBuilder
+    .select(...mt)
+      .where({
+      "mt.m_id": movie_id,
       "mt.is_showing": true,
     });
   } else {
     queryBuilder
-      .select(movies.slice(1))
-      .where({ "mt.is_showing": true })
-      .groupBy("t.theater_id")
+      .select("t.created_at", "t.updated_at")
+      .select(...mt, ...movies)
+      .where({ "mt.is_showing": true });
   }
 };
 
