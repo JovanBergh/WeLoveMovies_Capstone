@@ -3,15 +3,22 @@
  * @returns { Promise<void> }
  */
 exports.up = async function (knex) {
-  await knex.schema.createTableIfNotExists("movies", (table) => {
-    table.uuid("movie_id").primary().defaultTo(knex.raw("uuid_generate_v4()"));
-    table.string("title").notNullable();
-    table.integer("runtime_in_minutes").notNullable().defaultTo(0);
-    table.specificType("rating", "mpaa_rating");
-    table.text("description").notNullable();
-    table.string("image_url").notNullable();
-    table.timestamps(true, true);
-  });
+  const tableExists = await knex.schema.hasTable("movies");
+
+  if (!tableExists) {
+    await knex.schema.createTable("movies", (table) => {
+      table
+        .uuid("movie_id")
+        .primary()
+        .defaultTo(knex.raw("uuid_generate_v4()"));
+      table.string("title").notNullable();
+      table.integer("runtime_in_minutes").notNullable().defaultTo(0);
+      table.specificType("rating", "mpaa_rating");
+      table.text("description").notNullable();
+      table.string("image_url").notNullable();
+      table.timestamps(true, true);
+    });
+  }
 };
 
 /**
@@ -19,5 +26,9 @@ exports.up = async function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = async function (knex) {
-  await knex.schema.dropTable("movies");
+  const tableExists = await knex.schema.hasTable("movies");
+
+  if (tableExists) {
+    await knex.schema.dropTable("movies");
+  }
 };

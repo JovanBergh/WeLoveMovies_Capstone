@@ -1,9 +1,9 @@
 function isExistingItem (fn, item ) {
     return async function (req, res, next){
-        const id = req.params[`${item}Id`];
+        const id = req.params[`${item.toLowerCase()}Id`];
         const data = await fn(id);
         if (data) {
-            res.locals[item] = data;
+            res.locals[item.toLowerCase()] = data;
             return next();
         }
 

@@ -1,12 +1,9 @@
 const service = require("./reviews.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const methodNotAllowed = require("../errors/methodNotAllowed");
+const isExistingItem = require("../utils/is-existing-item");
 
-async function reviewExists(request, response, next) {
-  // TODO: Write your code here
-
-  next({ });
-}
+const doesreviewExists = isExistingItem(service.read, "Review");
 
 async function destroy(request, response) {
   // TODO: Write your code here
@@ -15,8 +12,9 @@ async function destroy(request, response) {
 
 async function list(request, response) {
   // TODO: Write your code here
-
-  response.json({  });
+  const movie_id = response.locals.movie.id;
+  const data = await service.list(movie_id); 
+  response.json({ data });
 }
 
 function hasMovieIdInPath(request, response, next) {
@@ -41,13 +39,13 @@ async function update(request, response) {
 module.exports = {
   destroy: [
     noMovieIdInPath,
-    asyncErrorBoundary(reviewExists),
+    asyncErrorBoundary(doesreviewExists),
     asyncErrorBoundary(destroy),
   ],
   list: [hasMovieIdInPath, asyncErrorBoundary(list)],
   update: [
     noMovieIdInPath,
-    asyncErrorBoundary(reviewExists),
+    asyncErrorBoundary(doesreviewExists),
     asyncErrorBoundary(update),
   ],
 };

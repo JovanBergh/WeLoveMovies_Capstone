@@ -5,15 +5,20 @@ const { table } = require("../connection");
  * @returns { Promise<void> }
  */
 exports.up = async function (knex) {
+  const tableExists = await knex.schema.hasTable("critics");
 
-    await knex.schema.createTableIfNotExists("critics", (table) => {
-    table.uuid("critic_id").primary().defaultTo(knex.raw("uuid_generate_v4()"));
-    table.string("preferred_name").notNullable();
-    table.string("surname").notNullable();
-    table.string("organization_name").notNullable();
-    table.timestamps(true, true);
-  });
-
+  if (!tableExists) {
+    await knex.schema.createTable("critics", (table) => {
+      table
+        .uuid("critic_id")
+        .primary()
+        .defaultTo(knex.raw("uuid_generate_v4()"));
+      table.string("preferred_name").notNullable();
+      table.string("surname").notNullable();
+      table.string("organization_name").notNullable();
+      table.timestamps(true, true);
+    });
+  }
 };
 
 /**
@@ -21,7 +26,9 @@ exports.up = async function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = async function (knex) {
+  const tableExists = await knex.schema.hasTable("critics");
 
+  if (tableExists) {
     await knex.schema.dropTable("critics");
-
+  }
 };

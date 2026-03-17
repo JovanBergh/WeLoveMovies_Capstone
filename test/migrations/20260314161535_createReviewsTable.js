@@ -8,12 +8,12 @@ exports.up = async function(knex) {
         table.uuid("review_id").primary().defaultTo(knex.raw("lower(hex(randomblob(16)))"));
         table.text("content");
         table.integer("score").defaultTo(0);
-        table.uuid("critic_id").notNullable();
+        table.uuid("critic_id");
         table.foreign("critic_id")
             .references("critic_id")
             .inTable("critics")
             .onDelete("SET NULL"); //Preserves review
-        table.uuid("movie_id").notNullable();
+        table.uuid("movie_id");
         table.foreign("movie_id")
             .references("movie_id")
             .inTable("movies")

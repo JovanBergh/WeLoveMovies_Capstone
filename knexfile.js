@@ -3,13 +3,13 @@ const path = require("path");
 require("dotenv").config();
 
 const {
-  DATABASE_URL = "postgresql://postgres@localhost/postgres",
+  POSTGRES_DATABASE = "postgresql://postgres@127.0.0.1:5432/postgres",
 } = process.env;
 
 module.exports = {
   development: {
     client: "postgresql",
-    connection: DATABASE_URL,
+    connection: POSTGRES_DATABASE,
     pool: { min: 0, max: 5 },
     migrations: {
       directory: path.join(__dirname, "src", "db", "migrations"),
@@ -24,7 +24,7 @@ module.exports = {
 
   production: {
     client: "postgresql",
-    connection: DATABASE_URL,
+    connection: POSTGRES_DATABASE,
     pool: { min: 0, max: 5 },
     migrations: {
       directory: path.join(__dirname, "src", "db", "migrations"),

@@ -4,13 +4,16 @@
  */
 
 exports.up = async function (knex) {
-
   await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
 
   await knex.raw(`
-    CREATE TYPE IF NOT EXISTS mpaa_rating AS ENUM ('G', 'PG', 'PG-13', 'R', 'NC-17', 'NR');
+    DO $$
+    BEGIN
+      IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'mpaa_rating') THEN
+        CREATE TYPE mpaa_rating AS ENUM ('G', 'PG', 'PG-13', 'R', 'NC-17', 'NR');
+      END IF;
+    END$$;
   `);
-
 };
 
 /**
@@ -18,9 +21,7 @@ exports.up = async function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = async function (knex) {
+  await knex.raw('DROP EXTENSION IF EXISTS "uuid-ossp";');
 
-  await knex.raw("DROP EXTENSION uuid-oosp;");
-
-  await knex.raw("DROP TYPE mpaa_rating;");
-
+  await knex.raw("DROP TYPE IF EXISTS mpaa_rating;");
 };

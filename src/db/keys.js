@@ -21,6 +21,16 @@ THEATER_KEYS = [
   "t.updated_at", 
 ];
 
+REVIEW_KEYS = [
+  "r.review_id",
+  "r.content",
+  "r.score",
+  "r.movie_id",
+  "r.critic_id",
+  "r.created_at",
+  "r.updated_at",
+];
+
 JOIN_KEYS = [
   "mt.theater_id",
   "mt.movie_id",
