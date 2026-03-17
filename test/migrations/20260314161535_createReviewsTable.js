@@ -5,7 +5,7 @@
 exports.up = async function(knex) {
   
     await knex.schema.createTable("reviews", (table) => {
-        table.uuid("review_id").primary().defaultTo(knex.raw("lower(hex(randomblob(16)))"));
+        table.uuid("review_id").primary().defaultTo(knex.raw("(lower(hex(randomblob(16))))"));
         table.text("content");
         table.integer("score").defaultTo(0);
         table.uuid("critic_id");

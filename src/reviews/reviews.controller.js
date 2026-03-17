@@ -12,7 +12,7 @@ async function destroy(request, response) {
 
 async function list(request, response) {
   // TODO: Write your code here
-  const movie_id = response.locals.movie.id;
+  const { movie_id } = response.locals.movie;
   const data = await service.list(movie_id); 
   response.json({ data });
 }

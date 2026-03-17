@@ -3,7 +3,7 @@ const reduceProperties = require("../utils/reduce-properties");
 const { movies, theaters, mt } = require("../db/keys");
 
 const reduceMovies = reduceProperties("theater_id", {
-  id: ["movies", null, "movie_id"],
+  movie_id: ["movies", null, "movie_id"],
   title: ["movies", null, "title"],
   runtime_in_minutes: ["movies", null, "runtime_in_minutes"],
   rating: ["movies", null, "rating"],

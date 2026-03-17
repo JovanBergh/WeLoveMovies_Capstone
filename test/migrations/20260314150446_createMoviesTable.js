@@ -5,7 +5,7 @@
 exports.up = async function(knex) {
 
     await knex.schema.createTable("movies", (table) => {
-    table.uuid("movie_id").primary().defaultTo(knex.raw("lower(hex(randomblob(16)))"));
+    table.uuid("movie_id").primary().defaultTo(knex.raw("(lower(hex(randomblob(16))))"));
     table.string("title");
     table.integer("runtime_in_minutes").defaultTo(0);
     table.enum("rating", ['G', 'PG', 'PG-13', 'R', 'NC-17', 'NR']);

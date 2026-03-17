@@ -1,5 +1,5 @@
 const MOVIE_KEYS = [
-  "m.movie_id as id",
+  "m.movie_id",
   "m.title",
   "m.runtime_in_minutes",
   "m.rating",
