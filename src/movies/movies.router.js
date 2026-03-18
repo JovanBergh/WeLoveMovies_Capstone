@@ -1,5 +1,9 @@
 const router = require("express").Router();
 const controller = require("./movies.controller");
+const corsOptions  = require("../errors/corsOptions ");
+const cors = require("cors");
+
+const permissions = cors(corsOptions("MOVIES"));
 
 //ERROR HANDLERS
 const methodNotAllowed = require("../errors/methodNotAllowed");
@@ -17,7 +21,7 @@ router.use("/:movieId/reviews", reviewsRouter);
 router.use("/:movieId/critics", notFound);
 
 //MAIN ROUTES
-router.route("/").get(controller.list).all(methodNotAllowed);
-router.route("/:movieId").get(controller.read).all(methodNotAllowed);
+router.route("/").options(permissions).get(permissions, controller.list).all(methodNotAllowed);
+router.route("/:movieId").options(permissions).get(permissions, controller.read).all(methodNotAllowed);
 
 module.exports = router;
