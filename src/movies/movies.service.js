@@ -15,7 +15,7 @@ async function read(movie_id) {
   return await db("movies as m")
     .select(movies)
     .where({ movie_id })
-    .then((movie) => movie[0]);
+    .first();
 }
 
 module.exports = {

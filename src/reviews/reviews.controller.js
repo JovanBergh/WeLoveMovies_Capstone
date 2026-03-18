@@ -5,35 +5,41 @@ const isExistingItem = require("../utils/is-existing-item");
 
 const doesreviewExists = isExistingItem(service.read, "Review");
 
-async function destroy(request, response) {
-  // TODO: Write your code here
-
+async function destroy(req, res) {
+  const review_id = req.params.reviewId;
+  await service.destroy(review_id);
+  res.sendStatus(204);
 }
 
-async function list(request, response) {
-  // TODO: Write your code here
-  const { movie_id } = response.locals.movie;
-  const data = await service.list(movie_id); 
-  response.json({ data });
+async function list(req, res) {
+  const { movie_id } = res.locals.movie;
+  const data = await service.list(movie_id);
+  res.json({ data });
 }
 
-function hasMovieIdInPath(request, response, next) {
-  if (request.params.movieId) {
+function hasMovieIdInPath(req, res, next) {
+  if (req.params.movieId) {
     return next();
   }
-  methodNotAllowed(request, response, next);
+  methodNotAllowed(req, res, next);
 }
 
-function noMovieIdInPath(request, response, next) {
-  if (request.params.movieId) {
-    return methodNotAllowed(request, response, next);
+function noMovieIdInPath(req, res, next) {
+  if (req.params.movieId) {
+    return methodNotAllowed(req, res, next);
   }
   next();
 }
 
-async function update(request, response) {
-  // TODO: Write your code here
+async function update(req, res) {
+  const newReview = {
+    ...res.locals.review,
+    ...req.body.data,
+    review_id: req.params.reviewId,
+  };
+  data = await service.update(newReview);
 
+  res.json({ data });
 }
 
 module.exports = {
@@ -42,7 +48,10 @@ module.exports = {
     asyncErrorBoundary(doesreviewExists),
     asyncErrorBoundary(destroy),
   ],
-  list: [hasMovieIdInPath, asyncErrorBoundary(list)],
+  list: [
+    hasMovieIdInPath,
+    asyncErrorBoundary(list)
+  ],
   update: [
     noMovieIdInPath,
     asyncErrorBoundary(doesreviewExists),

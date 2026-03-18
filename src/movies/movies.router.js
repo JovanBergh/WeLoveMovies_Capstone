@@ -3,15 +3,18 @@ const controller = require("./movies.controller");
 
 //ERROR HANDLERS
 const methodNotAllowed = require("../errors/methodNotAllowed");
+const notFound = require("../errors/notFound");
 
 //EXTERNAL ROUTES
 const reviewsRouter = require("../reviews/reviews.router");
 const theatersRouter = require("../theaters/theaters.router");
 
 //COMPOUND ROUTES
+
 router.use("/:movieId",controller.check); //ID check
 router.use("/:movieId/theaters", theatersRouter);
 router.use("/:movieId/reviews", reviewsRouter);
+router.use("/:movieId/critics", notFound);
 
 //MAIN ROUTES
 router.route("/").get(controller.list).all(methodNotAllowed);

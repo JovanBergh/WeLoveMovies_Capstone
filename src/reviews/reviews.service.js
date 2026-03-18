@@ -1,33 +1,31 @@
 const db = require("../db/connection");
-const keys = require("../db/keys");
+const { reviews } = require("../db/keys");
 
 const reduceProperties = require("../utils/reduce-properties");
 
-const reducecritics = reduceProperties("review_id", {
-  critic_id: ["critics", null, "critic_id"],
-  preferred_name: ["critics", null, "preferred_name"],
-  surname: ["critics", null, "surname"],
-  organization: ["critics", null, "orginization"],
-  show_created: ["critics", null, "created_at"],
-  show_updated: ["critics", null, "updated_at"],
+const reduceCritics = reduceProperties("review_id", {
+  critic_id: ["critic", null, "critic_id"],
+  preferred_name: ["critic", null, "preferred_name"],
+  surname: ["critic", null, "surname"],
+  organization_name: ["critic", null, "organization_name"],
+  created_at: ["critic", null, "created_at"],
+  updated_at: ["critic", null, "updated_at"],
 });
 
-
-async function destroy(reviewId) {
-  // TODO: Write your code here
+async function destroy(review_id) {
+  return db("reviews").where({ review_id }).del();
   
 }
 
 async function list(movie_id) {
-  // TODO: Write your code here
   return db("reviews as r")
-    .select("*")
-    .where({ "r.movie_id": movie_id });
+    .select(reviews)
+    .where({ movie_id })
+    .then((reviews) => Promise.all(reviews.map(setCritic))); //mapping critics to reviews
 }
 
-async function read(reviewId) {
-  // TODO: Write your code here
-  
+async function read(review_id) {
+  return db("reviews as r").where({ review_id }).select(reviews).first();
 }
 
 async function readCritic(critic_id) {

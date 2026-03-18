@@ -18,7 +18,7 @@ exports.up = async function (knex) {
         .foreign("movie_id")
         .references("movie_id")
         .inTable("movies")
-        .onDelete("CASCADE");
+        .onDelete("CASCADE"); //delete's with movie removal
       table.uuid("critic_id").notNullable();
       table
         .foreign("critic_id")

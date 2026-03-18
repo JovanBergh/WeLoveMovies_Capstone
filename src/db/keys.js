@@ -43,4 +43,5 @@ module.exports = {
     mt: JOIN_KEYS,
     movies: MOVIE_KEYS,
     theaters: THEATER_KEYS,
+    reviews: REVIEW_KEYS
 }

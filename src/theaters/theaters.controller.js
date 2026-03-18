@@ -3,7 +3,7 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const { movieExists } = require("../movies/movies.controller");
 
 function fetchMovie (res) {
-  return res?.locals?.movie?.id || null;
+  return res?.locals?.movie?.movie_id || null;
 } 
 
 async function list(req, res) {

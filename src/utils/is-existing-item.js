@@ -1,9 +1,16 @@
 function isExistingItem (fn, item ) {
     return async function (req, res, next){
-        const id = req.params[`${item.toLowerCase()}Id`];
-        const data = await fn(id);
+        let smallcase = item.toLowerCase();
+        const key = req.params[`${smallcase}Id`];
+        if (!key) {
+            return next({
+                status: 405,
+                message: `${item}Id missing`
+            })
+        }
+        const data = await fn(key);
         if (data) {
-            res.locals[item.toLowerCase()] = data;
+            res.locals[smallcase]= data;
             return next();
         }
 
