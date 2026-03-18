@@ -21,5 +21,5 @@ async function list(req, res) {
 module.exports = {
   list: [asyncErrorBoundary(list)],
   read: [asyncErrorBoundary(doesMovieExist), read],
-  check: doesMovieExist
+  check: doesMovieExist,
 };

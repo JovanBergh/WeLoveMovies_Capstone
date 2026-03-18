@@ -2,9 +2,9 @@ const service = require("./theaters.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const { movieExists } = require("../movies/movies.controller");
 
-function fetchMovie (res) {
+function fetchMovie(res) {
   return res?.locals?.movie?.movie_id || null;
-} 
+}
 
 async function list(req, res) {
   const movie_id = fetchMovie(res);

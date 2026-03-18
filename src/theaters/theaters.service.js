@@ -15,18 +15,16 @@ const reduceMovies = reduceProperties("theater_id", {
 });
 
 const buildResponse = function (queryBuilder, movie_id) {
-  queryBuilder.select(...theaters.slice(0,-2), ...mt.slice(2,-1)); //building response
+  queryBuilder.select(...theaters.slice(0, -2), ...mt.slice(2, -1)); //building response
 
   if (movie_id) {
     queryBuilder
-      .select(
-        "mt.is_showing",
-        "mt.movie_id"
-      )
+      .select("mt.is_showing", "mt.movie_id")
       .where({
-      "mt.movie_id": movie_id,
-      "mt.is_showing": true,
-    }).orderBy("t.theater_id")
+        "mt.movie_id": movie_id,
+        "mt.is_showing": true,
+      })
+      .orderBy("t.theater_id");
   } else {
     queryBuilder
       .select(
@@ -35,7 +33,7 @@ const buildResponse = function (queryBuilder, movie_id) {
         "mt.created_at as show_created",
         "mt.updated_at as show_updated",
         "mt.is_showing",
-        "mt.theater_id"
+        "mt.theater_id",
       )
       .where({ "mt.is_showing": true });
   }
@@ -52,7 +50,6 @@ async function list(movie_id) {
       }
       return reduceMovies(response);
     });
-
 }
 
 module.exports = {

@@ -48,10 +48,7 @@ module.exports = {
     asyncErrorBoundary(doesreviewExists),
     asyncErrorBoundary(destroy),
   ],
-  list: [
-    hasMovieIdInPath,
-    asyncErrorBoundary(list)
-  ],
+  list: [hasMovieIdInPath, asyncErrorBoundary(list)],
   update: [
     noMovieIdInPath,
     asyncErrorBoundary(doesreviewExists),

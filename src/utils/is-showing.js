@@ -5,6 +5,6 @@ function isShowing(queryBuilder, is_showing) {
       .where({ "mt.is_showing": true })
       .groupBy("m.movie_id");
   }
-};
+}
 
 module.exports = isShowing;

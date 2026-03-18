@@ -6,7 +6,7 @@ const MOVIE_KEYS = [
   "m.description",
   "m.image_url",
   "m.created_at",
-  "m.updated_at"
+  "m.updated_at",
 ];
 
 THEATER_KEYS = [
@@ -18,7 +18,7 @@ THEATER_KEYS = [
   "t.state",
   "t.zip",
   "t.created_at",
-  "t.updated_at", 
+  "t.updated_at",
 ];
 
 REVIEW_KEYS = [
@@ -40,8 +40,8 @@ JOIN_KEYS = [
 ];
 
 module.exports = {
-    mt: JOIN_KEYS,
-    movies: MOVIE_KEYS,
-    theaters: THEATER_KEYS,
-    reviews: REVIEW_KEYS
-}
+  mt: JOIN_KEYS,
+  movies: MOVIE_KEYS,
+  theaters: THEATER_KEYS,
+  reviews: REVIEW_KEYS,
+};

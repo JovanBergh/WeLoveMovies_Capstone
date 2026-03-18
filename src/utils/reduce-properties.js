@@ -25,7 +25,7 @@ function getRowMapConfiguration(configuration, previousRow) {
     accumulator[key] = values.map((value, index, source) =>
       value === null
         ? lodash.get(previousRow, `${source[index - 1]}.length`, 0)
-        : value
+        : value,
     );
     return accumulator;
   }, {});
@@ -50,7 +50,7 @@ function reduceProperties(uniqueField, configuration) {
 
       const rowMapConfiguration = getRowMapConfiguration(
         configuration,
-        rowObject
+        rowObject,
       );
 
       const rowMapper = mapProperties(rowMapConfiguration);

@@ -14,7 +14,6 @@ const reduceCritics = reduceProperties("review_id", {
 
 async function destroy(review_id) {
   return db("reviews").where({ review_id }).del();
-  
 }
 
 async function list(movie_id) {
