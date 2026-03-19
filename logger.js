@@ -10,7 +10,10 @@ const logger = pinoHttp({
   genReqId: (request) => request.headers["x-request-id"] || nanoid(),
   level,
   transport:{
-    target: 'pino-pretty'
+    target: 'pino-pretty',
+    options: {
+      colorize: true
+    }
   }
 });
 

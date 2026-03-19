@@ -3,7 +3,7 @@ const { PORT = 5001 } = process.env;
 const app = require("./app");
 const knex = require("./db/connection");
 
-const listener = () => console.log(`Listening on Port ${PORT}!\n${process.stdout.isTTY}`);
+const listener = () => console.log(`Listening on Port ${PORT}!\nTTY: ${process.stdout.isTTY}`);
 console.log(process.stdout.isTTY);
 knex.migrate
   .latest()
