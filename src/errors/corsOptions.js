@@ -1,5 +1,4 @@
 require("dotenv").config();
-const cors = require("cors");
 
 function corsOptions(route) {
   const origin = process.env.CORS_ORIGIN;

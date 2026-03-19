@@ -3,12 +3,11 @@ const moviesRouter = require("./movies/movies.router");
 const theatersRouter = require("./theaters/theaters.router");
 const reviewsRouter = require("./reviews/reviews.router");
 
-//ERR HANDLING
-const logger = require("../logger");
 const notFound = require("./errors/notFound");
 const errorHandler = require("./errors/errorHandler");
 
 require("dotenv").config();
+const logger = require("../logger");
 
 //INITIATING APP
 const express = require("express");
