@@ -5,6 +5,29 @@ const level = process.env.LOG_LEVEL || "info";
 
 const nodeEnv = process.env.NODE_ENV || "development";
 
+
+//LOGGERS
+const logger = (level, transport, serializers) => {
+  return pinoHttp({
+  genReqId: (request) => request.headers["x-request-id"] || nanoid(),
+  level,
+  transport,
+  serializers,
+  customSuccessMessage,
+  customAttributeKeys
+})};
+
+const audit = (level, transport, serializers) => {
+  return pinoHttp({
+  genReqId: (request) => request.headers["x-request-id"] || nanoid(),
+  level,
+  transport,
+  serializers,
+  customSuccessMessage,
+  customAttributeKeys
+})};
+
+
 //DEV: HUMAN-READABLE OUTPUT
 const transport = 
   process.stdout.isTTY && nodeEnv === "development"
@@ -34,15 +57,15 @@ const serializers = {
 };
 
 const customSuccessMessage = (req,res) => {
-  return `\n${req.method} "${req.url}"\n${res.statusCode}`
+  return `\n(${res.statusCode}) ${req.method} "${req.url}"`
 }
 
-const logger = pinoHttp({
-  genReqId: (request) => request.headers["x-request-id"] || nanoid(),
-  level,
-  transport,
-  serializers,
-  customSuccessMessage
-});
+const customAttributeKeys = {
+  req: 'request',
+  res: 'response',
+}
 
-module.exports = logger;
+
+module.exports = [
+  logger
+];
