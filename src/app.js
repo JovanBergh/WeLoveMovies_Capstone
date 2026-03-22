@@ -2,6 +2,8 @@
 const logsRouter = require("./logs/logs.router");
 const express = require("express");
 const app = express();
+const logger  = require("./logs/log.service");
+
 
 app.use(express.json()); // enabling json handling
 
