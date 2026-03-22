@@ -17,6 +17,16 @@ const logger = (level, transport, serializers) => {
   customAttributeKeys
 })};
 
+const app = (level, transport, serializers) => {
+  return pinoHttp({
+  genReqId: (request) => request.headers["x-request-id"] || nanoid(),
+  level,
+  transport,
+  serializers,
+  customSuccessMessage,
+  customAttributeKeys
+})};
+
 const audit = (level, transport, serializers) => {
   return pinoHttp({
   genReqId: (request) => request.headers["x-request-id"] || nanoid(),
@@ -27,6 +37,15 @@ const audit = (level, transport, serializers) => {
   customAttributeKeys
 })};
 
+const security = (level, transport, serializers) => {
+  return pinoHttp({
+  genReqId: (request) => request.headers["x-request-id"] || nanoid(),
+  level,
+  transport,
+  serializers,
+  customSuccessMessage,
+  customAttributeKeys
+})};
 
 //DEV: HUMAN-READABLE OUTPUT
 const transport = 
