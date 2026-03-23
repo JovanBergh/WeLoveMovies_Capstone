@@ -6,8 +6,9 @@ const logger  = require("./logs/log.service");
 
 
 app.use(express.json()); // enabling json handling
+app.use(logger());
 
-//app.use("/api/logs", logsRouter); //Logging
+//app.use("/api/logs", logsRouter);
 
 
 //ROUTES
