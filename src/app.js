@@ -1,5 +1,5 @@
 //INITIATING APP
-const logsRouter = require("./logs/logs.router");
+//const logsRouter = require("./logs/logs.router");
 const express = require("express");
 const app = express();
 const logger  = require("./logs/log.service");
