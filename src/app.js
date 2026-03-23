@@ -2,11 +2,12 @@
 //const logsRouter = require("./logs/logs.router");
 const express = require("express");
 const app = express();
-const logger  = require("./logs/log.service");
+const { httpLogger }  = require("../logger");
+const pinoHttp = require("pino-http");
 
 
 app.use(express.json()); // enabling json handling
-app.use(logger());
+app.use(httpLogger());
 
 //app.use("/api/logs", logsRouter);
 
