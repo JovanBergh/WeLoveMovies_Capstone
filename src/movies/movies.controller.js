@@ -1,7 +1,6 @@
 const service = require("./movies.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const isExistingItem = require("../utils/is-existing-item");
-const logger = require("../logs/log.service");
 
 const doesMovieExist = isExistingItem(service.read, "Movie");
 
