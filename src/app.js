@@ -10,7 +10,15 @@ try{
     const { httpLogger }  = require("../logger");
     app.use(httpLogger());
 //app.use("/api/logs", logsRouter);
-} finally {
+} catch {
+    const pinoHttp = require("pino-http");
+    const crypto = require("crypto");
+
+    const logger = require("pino")();
+
+    app.use(pinoHttp({ logger }));
+
+}finally {
 
 
 app.use(express.json()); // enabling json handling
