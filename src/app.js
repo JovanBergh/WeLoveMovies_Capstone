@@ -1,16 +1,19 @@
 //INITIATING APP
+
 //const logsRouter = require("./logs/logs.router");
 const express = require("express");
 const app = express();
-const { httpLogger }  = require("../logger");
-const pinoHttp = require("pino-http");
+
+
+
+try{
+    const { httpLogger }  = require("../logger");
+    app.use(httpLogger());
+//app.use("/api/logs", logsRouter);
+} finally {
 
 
 app.use(express.json()); // enabling json handling
-app.use(httpLogger());
-
-//app.use("/api/logs", logsRouter);
-
 
 //ROUTES
 const moviesRouter = require("./movies/movies.router");
@@ -32,3 +35,4 @@ app.use(errorHandler);
 app.use(notFound);
 
 module.exports = app;
+}
